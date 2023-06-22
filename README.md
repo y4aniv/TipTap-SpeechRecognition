@@ -1,1 +1,1 @@
-# tiptap-SpeechRecognition
+# TipTap-SpeechRecognition
