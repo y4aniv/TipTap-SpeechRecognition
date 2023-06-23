@@ -50,6 +50,9 @@ const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
 
       stopSpeechRecognition: () => ({ commands }) => {
         this.recognition.stop()
+        this.recognition = null
+        this.editor.commands.focus()
+        return "RECOGNITION STOPPED"
       }
     }
   },
