@@ -4,7 +4,7 @@ This extension enables speech-to-text recognition on the TipTap text editor
 
 ## Options
 
-#### lang
+### lang
 The language set for voice recognition
 <br>
 Type: `string`<br>
@@ -12,7 +12,7 @@ Default: `fr-FR`
 
 ## Usage
 
-#### JavaScript
+### JavaScript
 
 ```js
 import { Editor } from "@tiptap/core";
@@ -27,12 +27,12 @@ new Editor({
 })
 ```
 
-##### Start voice recognition
+#### Start voice recognition
 ```js
 editor.commands.startSpeechRecognition()
 ```
 
-##### Stop voice recognition
+#### Stop voice recognition
 ```js
 editor.commands.stopSpeechRecognition()
 ```
