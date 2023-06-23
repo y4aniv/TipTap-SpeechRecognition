@@ -1,4 +1,4 @@
-import { Extension } from '@tiptap/core'
+import { Node } from '@tiptap/core'
 
 export interface SpeechRecognitionOptions {
   lang: string, 
@@ -13,7 +13,7 @@ declare module '@tiptap/core' {
   }
 }
 
-const SpeechRecognition = Extension.create<SpeechRecognitionOptions>({
+const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
   name: 'SpeechRecognition',
 
   addOptions() {
@@ -50,6 +50,9 @@ const SpeechRecognition = Extension.create<SpeechRecognitionOptions>({
 
       stopSpeechRecognition: () => ({ commands }) => {
         this.recognition.stop()
+        this.recognition = null
+        this.editor.commands.focus()
+        return "RECOGNITION STOPPED"
       }
     }
   },
