@@ -42,6 +42,7 @@ const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
         this.recognition.onresult = (event) => {
           var result = event.results[i][0].transcript
           this.editor.commands.insertContent(result)
+          this.editor.commands.focus()
           i++
         }
 
