@@ -1,4 +1,4 @@
-# TipTap - SpeechRecognition
+# SpeechRecognition
 
 This extension enables speech-to-text recognition on the TipTap text editor
 
