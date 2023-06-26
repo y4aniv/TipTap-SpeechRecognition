@@ -1,7 +1,7 @@
 import { Node } from '@tiptap/core'
 
 export interface SpeechRecognitionOptions {
-  lang: string, 
+  lang: string,
 }
 
 declare module '@tiptap/core' {
@@ -18,7 +18,7 @@ const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
 
   addOptions() {
     return {
-      lang: 'fr-FR', 
+      lang: 'fr-FR',
     }
   },
 
@@ -29,30 +29,39 @@ const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
         this.recognition = new SpeechRecognition()
 
         this.recognition.lang = this.options.lang
-        this.recognition.interimResults = false
+        this.recognition.interimResults = true
         this.recognition.maxAlternatives = 1
         this.recognition.continuous = true
 
         this.recognition.start()
 
-        this.recognition.finalTranscript = ''
-
-        let i = 0
+        this.recognition.contentLength = this.editor.getText().length + 1
 
         this.recognition.onresult = (event) => {
-          var result = event.results[i][0].transcript
-          this.editor.commands.insertContent(result)
-          this.editor.commands.focus()
-          i++
+
+          this.recognition.currentResult = ""
+
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            this.recognition.currentResult += event.results[i][0].transcript
+          }
+          this.editor.commands.deleteRange({
+            from: this.recognition.contentLength,
+            to: this.editor.getText().length + 1,
+          })
+          this.editor.commands.insertContentAt(this.recognition.contentLength, this.recognition.currentResult)
+          if (event.results[event.results.length - 1].isFinal) {
+            this.recognition.contentLength += event.results[event.results.length - 1][0].transcript.length + 1
+          }
         }
 
         return "RECOGNITION STARTED"
       },
 
       stopSpeechRecognition: () => ({ commands }) => {
+        console.log(this.recognition.results)
         this.recognition.stop()
-        this.recognition = null
         this.editor.commands.focus()
+        this.recognition.lastResult = ''
         return "RECOGNITION STOPPED"
       }
     }
