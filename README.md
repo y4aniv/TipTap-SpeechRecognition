@@ -1,2 +1,2 @@
 # playground/dev
-Version : `1.0.2-Alpha`
+Version : `2.0.0-Alpha`
