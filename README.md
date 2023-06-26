@@ -39,7 +39,7 @@ editor.commands.stopSpeechRecognition()
 
 ## Todo
 
-- [ ] Disable real-time transcription in settings
+- [x] Real-time transcription
 - [ ] Add punctuation support
 - [ ] Several alternatives for each result
 - [ ] Activating the extension with a keyboard command
