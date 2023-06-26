@@ -18,8 +18,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install": "npm install && cd ./src/TipTap-SpeechRecognition && npm install"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
