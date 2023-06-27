@@ -31,7 +31,7 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
 
   addCommands() {
     return {
-      startSpeechRecognition: () => () => {
+      startSpeechRecognition: () => ({ commands }) => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
         this.recognition = new SpeechRecognition()
 
@@ -48,7 +48,7 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
         this.recognition.onresult = (event) => {
 
           // If the length of the content of the editor is less than the length of the recognized content, redefine the variable contentLength taking into account the length of the recognized content
-          if(this.recognition.contentLength > this.editor.getText().length + 1) {
+          if (this.recognition.contentLength > this.editor.getText().length + 1) {
             this.recognition.contentLength = this.editor.getText().length + 1
           }
 
@@ -75,20 +75,20 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
               to: this.editor.getText().length + 1,
             })
             this.editor.commands.insertContentAt(this.recognition.contentLength, this.recognition.currentResult)
-            
+
             // Redefine the variable contentLength taking into account the last recognized sentence
             this.recognition.contentLength += event.results[event.results.length - 1][0].transcript.length + 1
           }
         }
 
-        return true
+        return commands
       },
 
-      stopSpeechRecognition: () => () => {
+      stopSpeechRecognition: () => ({ commands }) => {
         this.recognition.stop()
         this.editor.commands.focus()
         this.recognition.lastResult = ''
-        return true
+        return commands
       }
     }
   },
