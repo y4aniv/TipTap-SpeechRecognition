@@ -13,7 +13,14 @@ declare module '@tiptap/core' {
   }
 }
 
-const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
+class SR_Node<O = any, S = any> extends Node<O, S> {
+  recognition: SpeechRecognition;
+  static create<O = any, S = any>(config?: any) {
+    return Node.create(config) as SR_Node<O, S>;
+  }
+};
+
+const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
   name: 'SpeechRecognition',
 
   addOptions() {
@@ -33,7 +40,7 @@ const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
         this.recognition.maxAlternatives = 1
         this.recognition.continuous = true
 
-        this.recognition.start()
+        this.recognition.start();
 
         this.recognition.contentLength = this.editor.getText().length + 1
         this.recognition.quoicoubeh = null
@@ -69,14 +76,14 @@ const SpeechRecognition = Node.create<SpeechRecognitionOptions>({
           }
         }
 
-        return "RECOGNITION STARTED"
+        return true
       },
 
       stopSpeechRecognition: () => ({ commands }) => {
         this.recognition.stop()
         this.editor.commands.focus()
         this.recognition.lastResult = ''
-        return "RECOGNITION STOPPED"
+        return true
       }
     }
   },
