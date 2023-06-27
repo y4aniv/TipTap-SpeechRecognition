@@ -49,21 +49,21 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
 
           this.recognition.currentResult = ""
 
-          // Ajouter à la variable currentResult le contenu de la dernière phrase reconnue
+          // Add to the currentResult variable the content of the last recognized sentence
           for (let i = event.resultIndex; i < event.results.length; i++) {
             this.recognition.currentResult += event.results[i][0].transcript
           }
 
-          // Supprimer la dernière phrase afficher (currentResult) dans l'éditeur
+          // Delete the last sentence displayed (currentResult) in the editor
           this.editor.commands.deleteRange({
             from: this.recognition.contentLength,
             to: this.editor.getText().length + 1,
           })
 
-          // Ajouter la dernière phrase reconnue (currentResult) dans l'éditeur avec un style
+          // Add the last recognized sentence (currentResult) in the editor with a style
           this.editor.commands.insertContentAt(this.recognition.contentLength, `<code>${this.recognition.currentResult}</code>`)
 
-          // Si la dernière phrase reconnue est finale, supprimer la dernière phrase reconnue (currentResult) dans l'éditeur et réecrir la dernière phrase reconnue (currentResult) dans l'éditeur sans style
+          // Sif the last recognized sentence is final, delete the last recognized sentence (currentResult) in the editor and rewrite the last recognized sentence (currentResult) in the editor without style
           if (event.results[event.results.length - 1].isFinal) {
             this.editor.commands.deleteRange({
               from: this.recognition.contentLength,
@@ -71,7 +71,7 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
             })
             this.editor.commands.insertContentAt(this.recognition.contentLength, this.recognition.currentResult)
             
-            // Redéfinir la variable contentLength en prenant en compte la dernière phrase reconnue
+            // Redefine the variable contentLength taking into account the last recognized sentence
             this.recognition.contentLength += event.results[event.results.length - 1][0].transcript.length + 1
           }
         }
