@@ -47,6 +47,11 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
 
         this.recognition.onresult = (event) => {
 
+          // If the length of the content of the editor is less than the length of the recognized content, redefine the variable contentLength taking into account the length of the recognized content
+          if(this.recognition.contentLength > this.editor.getText().length + 1) {
+            this.recognition.contentLength = this.editor.getText().length + 1
+          }
+
           this.recognition.currentResult = ""
 
           // Add to the currentResult variable the content of the last recognized sentence
