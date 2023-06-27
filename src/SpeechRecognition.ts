@@ -63,7 +63,7 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
           // Add the last recognized sentence (currentResult) in the editor with a style
           this.editor.commands.insertContentAt(this.recognition.contentLength, `<code>${this.recognition.currentResult}</code>`)
 
-          // Sif the last recognized sentence is final, delete the last recognized sentence (currentResult) in the editor and rewrite the last recognized sentence (currentResult) in the editor without style
+          // If the last recognized sentence is final, delete the last recognized sentence (currentResult) in the editor and rewrite the last recognized sentence (currentResult) in the editor without style
           if (event.results[event.results.length - 1].isFinal) {
             this.editor.commands.deleteRange({
               from: this.recognition.contentLength,
