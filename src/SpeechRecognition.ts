@@ -31,7 +31,7 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
 
   addCommands() {
     return {
-      startSpeechRecognition: () => ({ commands }) => {
+      startSpeechRecognition: () => () => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
         this.recognition = new SpeechRecognition()
 
@@ -84,7 +84,7 @@ const SpeechRecognition = SR_Node.create<SpeechRecognitionOptions>({
         return true
       },
 
-      stopSpeechRecognition: () => ({ commands }) => {
+      stopSpeechRecognition: () => () => {
         this.recognition.stop()
         this.editor.commands.focus()
         this.recognition.lastResult = ''
